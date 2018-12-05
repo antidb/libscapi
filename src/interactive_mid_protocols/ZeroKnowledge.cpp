@@ -212,7 +212,7 @@ bool ZKPOKFromSigmaCmtPedersenVerifier::verify(ZKCommonInput* input,
 long ZKPOKFromSigmaCmtPedersenVerifier::commit(const vector<byte> & e) {
 	auto val = committer->generateCommitValue(e);
 	auto id = random->getRandom64();
-	id = abs(id);
+	id = abs((int)id);  // the cast needed in order to support gcc 7.3 changes in abs
 	committer->commit(val, id);
 	return id;
 };
